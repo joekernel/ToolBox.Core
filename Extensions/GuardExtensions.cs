@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
+using ToolBox.Core.Entities;
 
 namespace Ardalis.GuardClauses
 {
@@ -14,6 +16,12 @@ namespace Ardalis.GuardClauses
         {
             if (maxWeight < weight)
                 throw new Exception($"The container weight is overloaded, you can't add this item.");
+        }
+
+        public static void ContainerNotFound(this IGuardClause guardClause, Container container,Guid containerId)
+        {
+            if (container == null)
+                throw new Exception($"Container not found");
         }
     }
 }

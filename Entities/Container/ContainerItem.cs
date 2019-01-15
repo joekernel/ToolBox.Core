@@ -1,24 +1,25 @@
-﻿namespace ToolBox.Core.Entities
+﻿using System;
+
+namespace ToolBox.Core.Entities
 {
     public class ContainerItem
     {
-        public int ItemId { get; set; }
+        public Guid ItemId { get; set; }
         public double ItemWeight { get; private set; }
         public double ItemCapacity { get; private set; }
         public double ContainerItemCapacity { get; private set; }
         public double ContainerItemWeight { get; private set; }
         public int Quantity { get; private set; }
 
-        public ContainerItem(int itemId, double capacity, double weight,int quantity=1)
+        public ContainerItem(Guid itemId, double capacity, double weight,int quantity=1)
         {
             ItemId = itemId;
             ItemCapacity = capacity;
             ItemWeight = weight;
             Quantity = quantity;
-            ContainerItemCapacity = CalculateCapacity();
-            ContainerItemWeight = CalculateWeight();
+            ContainerItemCapacity = quantity * capacity;
+            ContainerItemWeight = quantity * weight;
         }
-
 
         public void IncreaseQuantity(int quantity)
         {

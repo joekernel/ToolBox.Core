@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
+using ToolBox.Infrastructure.Interfaces;
 
 namespace ToolBox.Core.Entities
 {
-    public class Tool
+    public class Tool : IMongoEntity
     {
-        public int Id { get; private set; }
+        [BsonId]
+        public Guid Id { get; set; }
         public string Name { get; private set; }
         public double Weight { get; private set; }
         public double Capacity { get; private set; }
