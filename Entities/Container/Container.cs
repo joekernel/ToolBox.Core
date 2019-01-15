@@ -2,12 +2,12 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using ToolBox.Infrastructure.Interfaces;
+using System.Linq;  
+using ToolBox.Infrastructure.Interfaces;    
 
 namespace ToolBox.Core.Entities
 {
-    public class Container : IMongoEntity
+    public class Container : Interfaces.IContainer, IMongoEntity
     {
         [BsonId]
         public Guid Id { get; private set; }
@@ -20,7 +20,7 @@ namespace ToolBox.Core.Entities
         public void AddItem(Tool item, int quantity = 1)
         {
             Guard.Against.ContainerCapacityOverload(ContainerCapacity + quantity * item.Capacity, ContainerMaxCapacity);
-            Guard.Against.ContainerWeightOverload(ContainerWeight + quantity * item.Weight, ContainerMaxWeight);
+            Guard.Against.ContainerWeightOverload(this,quantity * item.Weight);
 
             var existingItem = Items.FirstOrDefault(i => i.ItemId == item.Id);
 
